@@ -1,0 +1,33 @@
+{
+  "name": "backend-1",
+  "version": "1.0.0",
+  "description": "Servidor backend en Node.js y Express para gestionar productos y carritos de compra mediante API REST. Incluye endpoints para CRUD de productos y administración de carritos, con persistencia en archivos JSON.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "backend",
+    "nodejs",
+    "express",
+    "api",
+    "rest",
+    "products",
+    "carts",
+    "ecommerce",
+    "crud",
+    "json",
+    "filesystem"
+  ],
+  "author": {
+    "name": "Matias Azar",
+    "email": "matias_azar@hotmail.com"
+  },
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
