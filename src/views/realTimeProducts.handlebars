@@ -1,0 +1,100 @@
+<link rel="stylesheet" href="/css/main.css" />
+<link rel="stylesheet" href="/css/realtime.css" />
+
+<div class="container">
+
+  <h1>Administrar Productos</h1>
+
+  <div class="forms-container">
+
+    <h2>Agregar producto</h2>
+
+    <form id="addProductForm">
+
+      <div class="form-group">
+        <input type="text" name="title" placeholder="Título" required />
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text"
+          name="description"
+          placeholder="Descripción"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <input type="number" name="price" placeholder="Precio" required />
+      </div>
+
+      <div class="form-group">
+        <input type="text" name="code" placeholder="Código" required />
+      </div>
+
+      <div class="form-group">
+        <input type="number" name="stock" placeholder="Stock" required />
+      </div>
+
+      <div class="form-group">
+        <input type="text" name="category" placeholder="Categoría" required />
+      </div>
+
+    
+      <div class="form-group">
+        <select name="status">
+          <option value="true">Disponible</option>
+          <option value="false">No disponible</option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <input
+          type="text"
+          name="thumbnails"
+          placeholder="URL de imagen (opcional)"
+        />
+      </div>
+
+      <button type="submit" class="form-button">
+        Agregar producto
+      </button>
+
+    </form>
+
+    <div class="form-divider"></div>
+
+    <h2>Eliminar producto</h2>
+
+    <form id="deleteProductForm">
+
+      <div class="form-group">
+        <input
+          type="number"
+          name="pid"
+          placeholder="ID del producto"
+          required
+        />
+      </div>
+
+      <button type="submit" class="form-button">
+        Eliminar producto
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+<div class="products-container" id="productsContainer">
+  <h2>Lista de productos</h2>
+  <ul id="productsList">
+    <!-- PRODUCTOS CARGADOS DESDE WEBSOCKET -->
+  </ul>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/realtime.js"></script>

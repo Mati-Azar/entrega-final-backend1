@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="/css/main.css" />
+<link rel="stylesheet" href="/css/home.css" />
+
+<div class="container">
+
+  <h1>Productos</h1>
+
+  <div class="products-grid">
+
+    {{#each products}}
+
+      {{#if this.status}}
+        <div class="product-card">
+
+          <h3 class="product-title">{{this.title}}</h3>
+
+          <p class="product-description">{{this.description}}</p>
+
+          <p class="product-price">$ {{this.price}}</p>
+
+          {{#each this.thumbnails}}
+            <img src="{{this}}" alt="Imagen Producto" />
+          {{/each}}
+
+        </div>
+      {{/if}}
+
+    {{/each}}
+
+  </div>
+
+</div>
