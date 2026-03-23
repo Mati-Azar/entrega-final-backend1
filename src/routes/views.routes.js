@@ -1,16 +1,25 @@
 import { Router } from "express";
-import ProductManager from "../dao/ProductManager.js";
+import { productModel } from "../model/productModel.js";
 
 const router = Router();
-const productManager = new ProductManager();
 
-router.get("/", async (req, res) => {
-  const products = await productManager.getProducts();
+router.get("/home", async (req, res) => {
+  // const products = await productModel.find({}).lean();
+  const { page = 1 } = req.query;
+  const pagination = await productModel.paginate(
+    {},
+    {
+      limit: 4,
+      page: page,
+      sort: { price: 1 },
+      lean: true,
+    },
+  );
   res.render("home", {
-    products,
+    pagination,
     styles: {
       main: "/css/main.css",
-      products: "/css/home.css",
+      home: "/css/home.css",
     },
   });
 });

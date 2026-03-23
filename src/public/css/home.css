@@ -34,3 +34,36 @@
   font-weight: bold;
   color: #2c7be5;
 }
+
+.pagination {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  font-family: sans-serif;
+}
+
+.pagination a {
+  padding: 10px 16px;
+  background: #1f1f1f;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.pagination a:hover {
+  background: #333;
+  transform: translateY(-2px);
+}
+
+.pagination span {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  background: #f2f2f2;
+  padding: 8px 14px;
+  border-radius: 8px;
+}

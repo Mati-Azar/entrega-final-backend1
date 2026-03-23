@@ -5,10 +5,10 @@ import cartRoutes from "./routes/carts.routes.js";
 import __dirname from "./utils.js";
 import handlebars from "express-handlebars";
 import viewRouter from "./routes/views.routes.js";
-import ProductManager from "./dao/ProductManager.js";
+import { productModel } from "./model/productModel.js";
+import mongoose from "mongoose";
 
 const app = express();
-const productManager = new ProductManager();
 
 /* ===========================  SET Y ENGINE PARA VISTAS =========================== */
 app.engine("handlebars", handlebars.engine());
@@ -32,6 +32,11 @@ app.use("/api/carts", cartRoutes);
 /* =======  REFERENCIA AL SERVIDOR HTTP PARA QUE PUEDA INICIAR EL PROTOCOLO DE WEBSOCKETS === */
 const httpServer = app.listen(8080, () => {
   console.log("Server funcionando");
+  mongoose
+    .connect(
+      "mongodb+srv://Pelambre:proyecto1789@backend1.zneqh9m.mongodb.net/backend1",
+    )
+    .then(() => console.log("Conectado a DB Atlas"));
 });
 
 /* ======= CON LA REFERENCIA, INICIAMOS EL PROTOCOLO DE WEBSOCKETS DESDE EL LADO DEL SERVIDOR ====== */
@@ -43,8 +48,7 @@ socketServer.on("connection", async (socket) => {
 
   try {
     /* ==== OBTENER LA LISTA COMPLETA DE PRODUCTOS  ====== */
-    const products = await productManager.getProducts();  
-
+    const products = await productModel.find({});
     /* ==== ENVIAR AL CLIENTE  ====== */
     socket.emit("productosActuales", products);
   } catch (error) {
@@ -55,8 +59,8 @@ socketServer.on("connection", async (socket) => {
   /* ==== ESCUCHAR NUEVO PRODUCTO  ====== */
   socket.on("nuevoProducto", async (productData) => {
     try {
-      await productManager.addProduct(productData);
-      const updatedProducts = await productManager.getProducts();
+      await productModel.create(productData);
+      const updatedProducts = await productModel.find({});
       socketServer.emit("productosActuales", updatedProducts);
     } catch (error) {
       console.error("Error al agregar producto:", error);
@@ -67,9 +71,9 @@ socketServer.on("connection", async (socket) => {
   socket.on("eliminarProducto", async (pid) => {
     try {
       /* ==== ELIMINAR PRODUCTO EN products.json  ====== */
-      await productManager.deleteProduct(Number(pid));
+      await productModel.findByIdAndDelete(pid);
       /* ==== OBTENER LA LISTA ACTUALIZADA DE PRODUCTOS  ====== */
-      const updatedProducts = await productManager.getProducts();
+      const updatedProducts = await productModel.find({});
       /* ==== ENVIAR LA LISTA ACTUALIZADA A TODOS LOS CLIENTES  ====== */
       socketServer.emit("productosActuales", updatedProducts);
     } catch (error) {
@@ -77,6 +81,4 @@ socketServer.on("connection", async (socket) => {
       socket.emit("errorEliminarProducto", "No se pudo eliminar el producto");
     }
   }); /* ==== FIN ESCUCHA ELIMINAR PRODUCTO  ====== */
-
-
 }); /* ==== FIN CONEXIÓN CLIENTE  ====== */

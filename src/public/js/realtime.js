@@ -21,7 +21,7 @@ socket.on("productosActuales", (products) => {
           <span class="price">$${product.price}</span>
         </div>
         <div class="product-details">
-  <span>ID: ${product.id} | Código: ${product.code} | Stock: ${product.stock} | Categoría: ${product.category} | 
+  <span>ID: ${product._id} | Código: ${product.code} | Stock: ${product.stock} | Categoría: ${product.category} | 
     Estado: 
     <span style="color: ${product.status ? "green" : "red"};">
       ${product.status ? "Disponible" : "No disponible"}

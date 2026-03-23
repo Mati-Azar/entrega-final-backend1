@@ -7,26 +7,29 @@
 
   <div class="products-grid">
 
-    {{#each products}}
-
+    {{#each pagination.docs}}
       {{#if this.status}}
         <div class="product-card">
-
           <h3 class="product-title">{{this.title}}</h3>
-
           <p class="product-description">{{this.description}}</p>
-
           <p class="product-price">$ {{this.price}}</p>
-
           {{#each this.thumbnails}}
             <img src="{{this}}" alt="Imagen Producto" />
           {{/each}}
-
         </div>
       {{/if}}
-
     {{/each}}
 
+  </div>
+
+  <div class="pagination">
+    {{#if pagination.hasPrevPage}}
+      <a href="/home?page={{pagination.prevPage}}">Anterior</a>
+    {{/if}}
+    <span>Página {{pagination.page}}</span>
+    {{#if pagination.hasNextPage}}
+      <a href="/home?page={{pagination.nextPage}}">Siguiente</a>
+    {{/if}}
   </div>
 
 </div>
